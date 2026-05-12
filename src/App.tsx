@@ -38,8 +38,8 @@ function AppContent() {
   }
 
   return (
-    <div className="h-[100dvh] bg-slate-50 max-w-md mx-auto relative shadow-2xl flex flex-col border-x border-slate-200">
-      <main className="flex-1 overflow-y-auto no-scrollbar pt-4">
+    <div className="h-full w-full bg-slate-50 max-w-md mx-auto relative shadow-2xl flex flex-col lg:border-x border-slate-200 overflow-hidden">
+      <main className="flex-1 overflow-y-auto overflow-x-hidden no-scrollbar pt-4 pb-24">
         {activeTab === 'home' && <HomeView />}
         {activeTab === 'orders' && <OrdersView />}
         {activeTab === 'cart' && <CartView onOrderSuccess={(id) => setActiveTab('orders')} onGoToHome={() => setActiveTab('home')} />}
@@ -73,33 +73,33 @@ export default function App() {
           },
         }}
       />
-      <div className="bg-slate-100 min-h-[100dvh] lg:h-[100dvh] lg:flex items-center justify-center font-sans antialiased text-slate-900">
-        {/* Desktop Mockup Decoration */}
-        <div className="hidden lg:flex fixed left-10 top-1/2 -translate-y-1/2 flex-col gap-6 max-w-xs">
-          <div className="flex items-center gap-3 mb-2">
-            <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-emerald-600/20">O</div>
-            <span className="font-black text-2xl tracking-tighter text-slate-800">OfficeMarket</span>
-          </div>
-          <h1 className="text-4xl font-black text-slate-900 leading-tight">Mude a forma como você compra snacks.</h1>
-          <p className="text-slate-500 font-medium">O Office Market traz a conveniência para dentro do seu escritório com preços de mercado.</p>
-          <div className="flex gap-2">
-            <div className="px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
-              <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
-              <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Estoque Local Ativo</span>
-            </div>
-          </div>
+    <div className="bg-slate-100 h-screen w-full lg:flex items-center justify-center font-sans antialiased text-slate-900 overflow-hidden relative">
+      {/* Desktop Mockup Decoration */}
+      <div className="hidden lg:flex fixed left-10 top-1/2 -translate-y-1/2 flex-col gap-6 max-w-xs">
+        <div className="flex items-center gap-3 mb-2">
+          <div className="w-12 h-12 bg-emerald-600 rounded-2xl flex items-center justify-center text-white font-black text-2xl shadow-lg shadow-emerald-600/20">O</div>
+          <span className="font-black text-2xl tracking-tighter text-slate-800">OfficeMarket</span>
         </div>
-
-        <AppContent />
-        
-        {/* Responsive Tip for desktop users */}
-        <div className="hidden lg:flex fixed right-10 bottom-10 flex-col items-end gap-2 text-right">
-          <div className="bg-emerald-600 text-white p-5 rounded-3xl shadow-xl shadow-emerald-600/20 animate-bounce">
-            <ShoppingBag size={24} />
+        <h1 className="text-4xl font-black text-slate-900 leading-tight">Mude a forma como você compra snacks.</h1>
+        <p className="text-slate-500 font-medium">O Office Market traz a conveniência para dentro do seu escritório com preços de mercado.</p>
+        <div className="flex gap-2">
+          <div className="px-4 py-2 bg-white rounded-xl border border-slate-200 shadow-sm flex items-center gap-2">
+            <div className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></div>
+            <span className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">Estoque Local Ativo</span>
           </div>
-          <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Experiência Mobile</p>
         </div>
       </div>
+
+      <AppContent />
+      
+      {/* Responsive Tip for desktop users */}
+      <div className="hidden lg:flex fixed right-10 bottom-10 flex-col items-end gap-2 text-right">
+        <div className="bg-emerald-600 text-white p-5 rounded-3xl shadow-xl shadow-emerald-600/20 animate-bounce">
+          <ShoppingBag size={24} />
+        </div>
+        <p className="text-xs font-black text-slate-400 uppercase tracking-widest">Experiência Mobile</p>
+      </div>
+    </div>
     </AppProvider>
   );
 }

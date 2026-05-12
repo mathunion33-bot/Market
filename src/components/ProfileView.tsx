@@ -181,7 +181,7 @@ export function ProfileView() {
                 </button>
               </div>
 
-              <div className="flex flex-col gap-6 overflow-y-auto no-scrollbar pb-4 flex-1">
+              <div className="flex flex-col gap-6 overflow-y-auto no-scrollbar pb-32 pt-2 flex-1 overscroll-contain">
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Seu Nome</label>
                   <div className="relative">
