@@ -45,21 +45,21 @@ export function ProductCard({ product }: ProductCardProps) {
         )}
         
         <div className="mt-auto">
-          <div className="flex items-baseline gap-1.5 mb-3">
-            <span className="text-lg font-black text-slate-900">
+          <div className="flex items-baseline gap-1 mb-3 flex-wrap">
+            <span className={cn("font-black text-slate-900 leading-none", product.priceMax ? "text-sm" : "text-lg")}>
               {product.priceMax 
                 ? `${formatCurrency(product.price)} - ${formatCurrency(product.priceMax)}`
                 : formatCurrency(product.price)
               }
             </span>
             {product.oldPrice && !product.priceMax && (
-              <span className="text-xs text-slate-400 line-through font-medium">{formatCurrency(product.oldPrice)}</span>
+              <span className="text-xs text-slate-400 line-through font-medium leading-none">{formatCurrency(product.oldPrice)}</span>
             )}
           </div>
           
           <button
             onClick={() => addToCart(product)}
-            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-slate-900/10"
+            className="w-full bg-slate-900 hover:bg-slate-800 text-white font-bold py-3 rounded-2xl flex items-center justify-center gap-2 transition-all active:scale-95 shadow-lg shadow-slate-900/10 flex-shrink-0"
           >
             <Plus size={16} strokeWidth={3} />
             <span className="text-xs uppercase tracking-widest">Adicionar</span>
