@@ -38,7 +38,7 @@ function AppContent() {
   }
 
   return (
-    <div className="min-h-screen bg-slate-50 max-w-md mx-auto relative shadow-2xl flex flex-col border-x border-slate-200">
+    <div className="h-[100dvh] bg-slate-50 max-w-md mx-auto relative shadow-2xl flex flex-col border-x border-slate-200">
       <main className="flex-1 overflow-y-auto no-scrollbar pt-4">
         {activeTab === 'home' && <HomeView />}
         {activeTab === 'orders' && <OrdersView />}
@@ -73,7 +73,7 @@ export default function App() {
           },
         }}
       />
-      <div className="bg-slate-100 min-h-screen lg:flex items-center justify-center font-sans antialiased text-slate-900">
+      <div className="bg-slate-100 min-h-[100dvh] lg:h-[100dvh] lg:flex items-center justify-center font-sans antialiased text-slate-900">
         {/* Desktop Mockup Decoration */}
         <div className="hidden lg:flex fixed left-10 top-1/2 -translate-y-1/2 flex-col gap-6 max-w-xs">
           <div className="flex items-center gap-3 mb-2">
