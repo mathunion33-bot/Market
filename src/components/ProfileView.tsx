@@ -160,9 +160,9 @@ export function ProfileView() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl relative z-10"
+              className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl relative z-10 max-h-[90dvh] flex flex-col"
             >
-              <div className="flex justify-between items-center mb-8">
+              <div className="flex justify-between items-center mb-8 flex-shrink-0">
                 <h3 className="text-2xl font-black text-slate-800 tracking-tighter">Meus Dados</h3>
                 <button 
                   onClick={() => setIsEditingProfile(false)}
@@ -172,7 +172,7 @@ export function ProfileView() {
                 </button>
               </div>
 
-              <div className="flex flex-col gap-6">
+              <div className="flex flex-col gap-6 overflow-y-auto no-scrollbar pb-4 flex-1">
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Seu Nome</label>
                   <div className="relative">
@@ -199,10 +199,12 @@ export function ProfileView() {
                     />
                   </div>
                 </div>
+              </div>
 
+              <div className="pt-4 flex-shrink-0 mt-auto">
                 <button 
                   onClick={handleSaveProfile}
-                  className="w-full bg-emerald-600 text-white font-black py-5 rounded-[2rem] shadow-xl shadow-emerald-500/20 active:scale-95 transition-all text-xs uppercase tracking-widest mt-4 flex justify-center items-center gap-2"
+                  className="w-full bg-emerald-600 text-white font-black py-5 rounded-[2rem] shadow-xl shadow-emerald-500/20 active:scale-95 transition-all text-xs uppercase tracking-widest flex justify-center items-center gap-2"
                 >
                   <Save size={18} />
                   Salvar Dados
