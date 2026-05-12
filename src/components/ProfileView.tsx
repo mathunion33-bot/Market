@@ -13,7 +13,9 @@ import {
   Sun,
   Camera,
   X,
-  Save
+  Save,
+  Gift,
+  Star
 } from 'lucide-react';
 import { cn } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
@@ -32,6 +34,11 @@ export function ProfileView() {
   const handleHelpClick = () => {
     window.open('https://wa.me/5511941774380', '_blank');
   };
+
+  const myOrders = orders.filter(o => o.userId === profile?.uid);
+  const validOrdersCount = myOrders.filter(o => o.status !== 'cancelled').length;
+  const points = validOrdersCount % 10;
+  const hasBonus = validOrdersCount > 0 && validOrdersCount % 10 === 0;
 
   const menuItems = [
     { 
@@ -95,12 +102,62 @@ export function ProfileView() {
       {/* Stats Summary Bento Style */}
       <div className="px-6 grid grid-cols-2 gap-4">
         <div className="bg-white border border-slate-200 p-6 rounded-[2.5rem] shadow-sm flex flex-col items-center text-center group transition-all hover:border-emerald-200">
-          <span className="text-2xl font-black text-slate-900 tracking-tighter mb-1">{orders.length}</span>
+          <span className="text-2xl font-black text-slate-900 tracking-tighter mb-1">{myOrders.length}</span>
           <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Pedidos</span>
         </div>
         <div className="bg-white border border-slate-200 p-6 rounded-[2.5rem] shadow-sm flex flex-col items-center text-center group transition-all hover:border-emerald-200">
           <span className="text-2xl font-black text-emerald-600 tracking-tighter mb-1">PRO</span>
           <span className="text-[10px] font-black text-slate-400 uppercase tracking-widest">Status</span>
+        </div>
+      </div>
+
+      {/* Loyalty Card */}
+      <div className="px-6">
+        <div className="bg-gradient-to-br from-slate-900 to-slate-800 p-6 rounded-[2.5rem] shadow-xl shadow-slate-900/20 text-white relative overflow-hidden">
+          <Star className="absolute -top-10 -right-10 text-white/5" size={150} />
+          
+          <div className="flex items-center gap-4 mb-6 relative z-10">
+            <div className="w-12 h-12 bg-white/10 rounded-2xl flex items-center justify-center backdrop-blur-md">
+              <Gift size={24} className={hasBonus ? "text-emerald-400 animate-pulse" : "text-white"} />
+            </div>
+            <div>
+              <h3 className="text-xl font-black tracking-tighter">Clube Fidelidade</h3>
+              <p className="text-[10px] font-bold text-slate-400 uppercase tracking-widest">
+                {hasBonus ? 'Bônus liberado!' : `${10 - points} pedidos para o bônus`}
+              </p>
+            </div>
+          </div>
+
+          <div className="relative z-10 flex flex-col gap-2">
+            <div className="flex justify-between items-center text-xs font-bold text-slate-300">
+              <span>Progresso Atual</span>
+              <span className={hasBonus ? "text-emerald-400" : "text-white"}>{hasBonus ? 10 : points}/10</span>
+            </div>
+            <div className="h-4 bg-white/10 rounded-full overflow-hidden">
+              <motion.div 
+                initial={{ width: 0 }}
+                animate={{ width: `${(hasBonus ? 10 : points) * 10}%` }}
+                transition={{ duration: 1, type: "spring" }}
+                className={cn(
+                  "h-full rounded-full",
+                  hasBonus ? "bg-emerald-500" : "bg-white"
+                )}
+              />
+            </div>
+          </div>
+          
+          {hasBonus && (
+            <motion.button 
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="w-full mt-6 bg-emerald-500 hover:bg-emerald-400 text-white font-black py-4 rounded-2xl transition-colors text-xs uppercase tracking-widest"
+              onClick={() => {
+                window.open('https://wa.me/5511941774380?text=Olá! Bati meus 10 pedidos e vim resgatar meu bônus Fidelidade!', '_blank');
+              }}
+            >
+              Resgatar Bônus pelo WhatsApp
+            </motion.button>
+          )}
         </div>
       </div>
 

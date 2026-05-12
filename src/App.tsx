@@ -73,7 +73,7 @@ export default function App() {
           },
         }}
       />
-    <div className="bg-slate-100 h-screen w-full lg:flex items-center justify-center font-sans antialiased text-slate-900 overflow-hidden relative">
+    <div className="bg-slate-100 fixed inset-0 lg:static lg:h-screen lg:w-full lg:flex items-center justify-center font-sans antialiased text-slate-900 overflow-hidden relative">
       {/* Desktop Mockup Decoration */}
       <div className="hidden lg:flex fixed left-10 top-1/2 -translate-y-1/2 flex-col gap-6 max-w-xs">
         <div className="flex items-center gap-3 mb-2">

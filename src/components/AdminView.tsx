@@ -329,10 +329,26 @@ export function AdminView() {
                         required
                         className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all"
                         value={newProduct.price || ''}
-                        onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) })}
+                        onChange={(e) => setNewProduct({ ...newProduct, price: parseFloat(e.target.value) || 0 })}
                       />
                     </div>
                   </div>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Preço Custo</label>
+                    <div className="relative">
+                      <DollarSign className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-300" size={18} />
+                      <input 
+                        type="number"
+                        step="0.01"
+                        className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all"
+                        value={newProduct.internalPrice || ''}
+                        onChange={(e) => setNewProduct({ ...newProduct, internalPrice: parseFloat(e.target.value) || 0 })}
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Prazo Entrega (Dias)</label>
                     <div className="relative">
@@ -343,13 +359,10 @@ export function AdminView() {
                         required
                         className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 pl-12 pr-4 text-sm font-bold focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all"
                         value={newProduct.deliveryDays || 1}
-                        onChange={(e) => setNewProduct({ ...newProduct, deliveryDays: parseInt(e.target.value) })}
+                        onChange={(e) => setNewProduct({ ...newProduct, deliveryDays: parseInt(e.target.value) || 1 })}
                       />
                     </div>
                   </div>
-                </div>
-
-                <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Preço Máximo (Opcional)</label>
                     <div className="relative">
@@ -364,6 +377,8 @@ export function AdminView() {
                       />
                     </div>
                   </div>
+                </div>
+                <div className="grid grid-cols-2 gap-4">
                   <div className="flex flex-col gap-2">
                     <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Estoque</label>
                     <div className="relative">
@@ -377,19 +392,19 @@ export function AdminView() {
                       />
                     </div>
                   </div>
-                </div>
 
-                <div className="flex flex-col gap-2">
-                  <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Categoria</label>
-                  <select 
-                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-4 text-sm font-bold focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all appearance-none"
-                    value={newProduct.category}
-                    onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
-                  >
-                    {CATEGORIES.map(c => (
-                      <option key={c.id} value={c.id}>{c.name}</option>
-                    ))}
-                  </select>
+                  <div className="flex flex-col gap-2">
+                    <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Categoria</label>
+                    <select 
+                      className="w-full bg-slate-50 border border-slate-200 rounded-2xl py-4 px-4 text-sm font-bold focus:ring-4 focus:ring-emerald-500/10 focus:border-emerald-500 outline-none transition-all appearance-none"
+                      value={newProduct.category}
+                      onChange={(e) => setNewProduct({ ...newProduct, category: e.target.value })}
+                    >
+                      {CATEGORIES.map(c => (
+                        <option key={c.id} value={c.id}>{c.name}</option>
+                      ))}
+                    </select>
+                  </div>
                 </div>
 
                 <div className="flex gap-4">

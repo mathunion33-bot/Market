@@ -88,6 +88,8 @@ interface AppContextType {
   checkout: (observation?: string, isRecurring?: boolean) => Promise<string | null>;
   loginWithGoogle: () => Promise<void>;
   loginAnonymously: () => Promise<void>;
+  loginWithEmail: (email: string, password: string) => Promise<void>;
+  signUpWithEmail: (email: string, password: string, name: string, address: string) => Promise<void>;
   logout: () => Promise<void>;
   isAdmin: boolean;
   updateOrderStatus: (orderId: string, status: OrderStatus) => Promise<void>;
@@ -217,6 +219,40 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
     } catch (error) {
       console.error(error);
       toast.error('Erro ao entrar como visitante.');
+    }
+  };
+
+  const loginWithEmail = async (email: string, password: string) => {
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      toast.success('Login realizado com sucesso!');
+    } catch (error) {
+      console.error(error);
+      toast.error('Erro ao fazer login com e-mail.');
+    }
+  };
+
+  const signUpWithEmail = async (email: string, password: string, name: string, address: string) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+      
+      const newProfile: UserProfile = {
+        uid: user.uid,
+        email: user.email || '',
+        displayName: name,
+        address: address,
+        photoURL: null,
+        role: 'user',
+        createdAt: serverTimestamp(),
+      };
+      await setDoc(doc(db, 'users', user.uid), newProfile);
+      setProfile(newProfile);
+      
+      toast.success('Conta criada com sucesso!');
+    } catch (error) {
+      console.error(error);
+      toast.error('Erro ao criar conta.');
     }
   };
 
@@ -378,6 +414,8 @@ export function AppProvider({ children }: { children: React.ReactNode }) {
       checkout,
       loginWithGoogle,
       loginAnonymously,
+      loginWithEmail,
+      signUpWithEmail,
       logout,
       isAdmin: profile?.role === 'admin',
       updateOrderStatus,
