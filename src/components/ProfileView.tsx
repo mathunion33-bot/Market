@@ -219,13 +219,22 @@ export function ProfileView() {
               exit={{ y: "100%" }}
               className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl relative z-10 max-h-[90dvh] flex flex-col"
             >
-              <div className="flex justify-between items-center mb-6 flex-shrink-0">
-                <h3 className="text-2xl font-black text-slate-800 tracking-tighter">Meus Dados</h3>
+              <div className="flex justify-between items-center mb-8 flex-shrink-0">
+                <div className="flex items-center gap-3">
+                  <button 
+                    onClick={() => setIsEditingProfile(false)}
+                    className="p-2.5 bg-slate-100 text-slate-400 rounded-2xl hover:text-slate-600 transition-colors"
+                  >
+                    <X size={24} />
+                  </button>
+                  <h3 className="text-2xl font-black text-slate-800 tracking-tighter">Meus Dados</h3>
+                </div>
                 <button 
-                  onClick={() => setIsEditingProfile(false)}
-                  className="p-2.5 bg-slate-100 text-slate-400 rounded-2xl hover:text-slate-600 transition-colors"
+                  onClick={handleSaveProfile}
+                  className="bg-emerald-600 text-white font-black px-4 py-3 rounded-2xl shadow-lg shadow-emerald-500/20 active:scale-95 transition-all text-xs uppercase tracking-widest flex items-center gap-2"
                 >
-                  <X size={24} />
+                  <Save size={16} />
+                  Salvar
                 </button>
               </div>
 
@@ -256,16 +265,6 @@ export function ProfileView() {
                     />
                   </div>
                 </div>
-              </div>
-
-              <div className="pt-2 flex-shrink-0 mt-auto">
-                <button 
-                  onClick={handleSaveProfile}
-                  className="w-full bg-emerald-600 text-white font-black py-5 rounded-[2rem] shadow-xl shadow-emerald-500/20 active:scale-95 transition-all text-xs uppercase tracking-widest flex justify-center items-center gap-2"
-                >
-                  <Save size={18} />
-                  Salvar Dados
-                </button>
               </div>
             </motion.div>
           </div>
