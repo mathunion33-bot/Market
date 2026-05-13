@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useApp } from '../context/AppContext';
-import { Trash2, Plus, Minus, CreditCard, ChevronRight, ShoppingBag, Clock, ArrowRight, MapPin, Repeat } from 'lucide-react';
+import { Trash2, Plus, Minus, CreditCard, ChevronRight, ShoppingBag, Clock, ArrowRight, MapPin, Repeat, Copy, Check } from 'lucide-react';
 import { formatCurrency } from '../lib/utils';
 import { motion, AnimatePresence } from 'motion/react';
 import { QRCodeSVG } from 'qrcode.react';
@@ -14,6 +14,7 @@ export function CartView({ onOrderSuccess, onGoToHome }: { onOrderSuccess: (orde
   const [isCheckingOut, setIsCheckingOut] = useState(false);
   const [isPixStep, setIsPixStep] = useState(false);
   const [completedTotal, setCompletedTotal] = useState(0);
+  const [isCopied, setIsCopied] = useState(false);
 
   const subtotal = (cart || []).reduce((sum, item) => sum + (item.price || 0) * (item.quantity || 1), 0);
   const deliveryFee = 0; // Internal delivery is free
@@ -34,6 +35,12 @@ export function CartView({ onOrderSuccess, onGoToHome }: { onOrderSuccess: (orde
     }
     setIsCheckingOut(false);
     setIsPixStep(false);
+  };
+
+  const handleCopyPix = (payload: string) => {
+    navigator.clipboard.writeText(payload);
+    setIsCopied(true);
+    setTimeout(() => setIsCopied(false), 2000);
   };
 
   if (isPixStep) {
@@ -65,8 +72,22 @@ export function CartView({ onOrderSuccess, onGoToHome }: { onOrderSuccess: (orde
         </div>
         
         <div className="w-full flex flex-col gap-4 mt-4">
-          <div className="flex items-center justify-center gap-2 text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-100 p-4 rounded-2xl mb-2">
-            <span className="truncate break-all w-full select-all">{pixPayload}</span>
+          <div className="flex flex-col gap-2 relative group w-full mb-2">
+            <div className="flex items-center justify-between gap-3 text-[10px] font-black text-slate-500 bg-slate-100/80 border border-slate-200/60 p-4 rounded-2xl w-full">
+              <span className="truncate break-all flex-1 text-left">{pixPayload}</span>
+              <button
+                onClick={() => handleCopyPix(pixPayload)}
+                className="flex-shrink-0 bg-white shadow-sm border border-slate-200 text-slate-700 p-2.5 rounded-xl hover:bg-slate-50 transition-colors"
+                title="Copiar PIX"
+              >
+                {isCopied ? <Check size={16} className="text-emerald-500" /> : <Copy size={16} />}
+              </button>
+            </div>
+            {isCopied && (
+              <span className="absolute -top-8 right-0 text-[10px] font-bold text-emerald-600 bg-emerald-50 px-3 py-1.5 rounded-lg animate-in fade-in slide-in-from-bottom-2">
+                Código copiado!
+              </span>
+            )}
           </div>
           
           <a 

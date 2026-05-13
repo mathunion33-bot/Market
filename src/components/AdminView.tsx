@@ -280,9 +280,9 @@ export function AdminView() {
               initial={{ y: "100%" }}
               animate={{ y: 0 }}
               exit={{ y: "100%" }}
-              className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl relative z-10 max-h-[90vh] overflow-y-auto no-scrollbar"
+              className="bg-white w-full max-w-md rounded-t-[3rem] sm:rounded-[3rem] p-8 shadow-2xl relative z-10 max-h-[90dvh] flex flex-col"
             >
-              <div className="flex justify-between items-center mb-8">
+              <div className="flex justify-between items-center mb-6 flex-shrink-0">
                 <h3 className="text-2xl font-black text-slate-800 tracking-tighter">{editingId ? 'Editar Produto' : 'Novo Produto'}</h3>
                 <button 
                   onClick={closeForm}
@@ -292,7 +292,7 @@ export function AdminView() {
                 </button>
               </div>
 
-              <form onSubmit={handleAddProduct} className="flex flex-col gap-6">
+              <form onSubmit={handleAddProduct} className="flex flex-col gap-6 overflow-y-auto no-scrollbar pb-8 pt-2 flex-1 overscroll-contain">
                 <div className="flex flex-col gap-2">
                   <label className="text-[10px] font-black text-slate-400 uppercase tracking-widest px-1">Nome do Produto</label>
                   <div className="relative">
@@ -460,12 +460,14 @@ export function AdminView() {
                   </div>
                 )}
 
-                <button 
-                  type="submit"
-                  className="w-full bg-slate-900 text-white font-black py-5 rounded-[2rem] shadow-xl shadow-slate-900/20 active:scale-95 transition-all text-xs uppercase tracking-widest mt-4"
-                >
-                  {editingId ? 'Atualizar Produto' : 'Salvar Produto'}
-                </button>
+                <div className="pt-2 flex-shrink-0 mt-auto">
+                  <button 
+                    type="submit"
+                    className="w-full bg-slate-900 text-white font-black py-5 rounded-[2rem] shadow-xl shadow-slate-900/20 active:scale-95 transition-all text-xs uppercase tracking-widest mt-2"
+                  >
+                    {editingId ? 'Atualizar Produto' : 'Salvar Produto'}
+                  </button>
+                </div>
               </form>
             </motion.div>
           </div>
