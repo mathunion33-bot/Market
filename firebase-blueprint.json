@@ -28,7 +28,8 @@
         "image": { "type": "string" },
         "stock": { "type": "integer" },
         "popular": { "type": "boolean" },
-        "featured": { "type": "boolean" }
+        "featured": { "type": "boolean" },
+        "hidden": { "type": "boolean" }
       },
       "required": ["name", "price", "category", "stock"]
     },

@@ -14,9 +14,11 @@ export function HomeView() {
 
   const [showRecurringHint, setShowRecurringHint] = useState(false);
 
-  const featuredProduct = products.find(p => p.featured) || products.find(p => p.popular);
+  const activeProducts = products.filter(p => !p.hidden);
 
-  const filteredProducts = products.filter(p => {
+  const featuredProduct = activeProducts.find(p => p.featured) || activeProducts.find(p => p.popular);
+
+  const filteredProducts = activeProducts.filter(p => {
     if (!selectedCategory) return p.name.toLowerCase().includes(searchTerm.toLowerCase());
     
     // Check if the product's category matches either the category ID or the category Name
@@ -30,7 +32,7 @@ export function HomeView() {
     return matchesCategory && matchesSearch;
   });
 
-  const popularProducts = products.filter(p => p.popular).slice(0, 4);
+  const popularProducts = activeProducts.filter(p => p.popular).slice(0, 4);
 
   return (
     <div className="flex flex-col gap-6 pb-24 animate-in fade-in duration-500">

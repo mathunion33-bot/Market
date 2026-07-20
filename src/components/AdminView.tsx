@@ -39,7 +39,8 @@ export function AdminView() {
     popular: false,
     featured: false,
     priceMax: 0,
-    deliveryDays: 1
+    deliveryDays: 1,
+    hidden: false
   });
 
   const totalRevenue = (orders || []).reduce((sum, o) => sum + (o.total || 0), 0);
@@ -89,7 +90,8 @@ export function AdminView() {
       popular: false,
       featured: false,
       priceMax: 0,
-      deliveryDays: 1
+      deliveryDays: 1,
+      hidden: false
     });
   };
 
@@ -105,7 +107,8 @@ export function AdminView() {
       popular: product.popular,
       featured: product.featured,
       priceMax: product.priceMax || 0,
-      deliveryDays: product.deliveryDays || 1
+      deliveryDays: product.deliveryDays || 1,
+      hidden: product.hidden || false
     });
     setEditingId(product.id);
     setShowAddForm(true);
@@ -161,7 +164,12 @@ export function AdminView() {
                   <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                 </div>
                 <div className="flex flex-col flex-1 min-w-0">
-                  <span className="text-sm font-bold text-slate-800 line-clamp-1">{product.name}</span>
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm font-bold text-slate-800 line-clamp-1">{product.name}</span>
+                    {product.hidden && (
+                      <span className="text-[8px] bg-red-50 text-red-600 border border-red-100 px-1.5 py-0.5 rounded font-black uppercase tracking-wider">Oculto</span>
+                    )}
+                  </div>
                   {product.description && (
                     <span className="text-[10px] text-slate-500 line-clamp-1 mt-0.5">{product.description}</span>
                   )}
@@ -407,25 +415,40 @@ export function AdminView() {
                   </div>
                 </div>
 
-                <div className="flex gap-4">
-                  <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                <div className="flex flex-col gap-3">
+                  <div className="flex gap-4">
+                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                        checked={newProduct.popular || false}
+                        onChange={(e) => setNewProduct({ ...newProduct, popular: e.target.checked })}
+                      />
+                      Produto Popular
+                    </label>
+                    
+                    <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
+                      <input 
+                        type="checkbox" 
+                        className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
+                        checked={newProduct.featured || false}
+                        onChange={(e) => setNewProduct({ ...newProduct, featured: e.target.checked })}
+                      />
+                      Oferta do Dia
+                    </label>
+                  </div>
+
+                  <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer bg-slate-50 p-3 rounded-xl border border-slate-200/50 hover:bg-slate-100 transition-colors">
                     <input 
                       type="checkbox" 
-                      className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
-                      checked={newProduct.popular || false}
-                      onChange={(e) => setNewProduct({ ...newProduct, popular: e.target.checked })}
+                      className="w-4 h-4 rounded border-slate-300 text-red-600 focus:ring-red-500"
+                      checked={newProduct.hidden || false}
+                      onChange={(e) => setNewProduct({ ...newProduct, hidden: e.target.checked })}
                     />
-                    Produto Popular
-                  </label>
-                  
-                  <label className="flex items-center gap-2 text-sm font-bold text-slate-700 cursor-pointer">
-                    <input 
-                      type="checkbox" 
-                      className="w-4 h-4 rounded border-slate-300 text-emerald-600 focus:ring-emerald-500"
-                      checked={newProduct.featured || false}
-                      onChange={(e) => setNewProduct({ ...newProduct, featured: e.target.checked })}
-                    />
-                    Oferta do Dia
+                    <div className="flex flex-col">
+                      <span className="text-red-700 font-extrabold text-xs uppercase tracking-wide">Ocultar Produto</span>
+                      <span className="text-[10px] text-slate-400 font-medium">Oculta o produto das prateleiras do app imediatamente</span>
+                    </div>
                   </label>
                 </div>
 

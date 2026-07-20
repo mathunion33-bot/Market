@@ -24,6 +24,7 @@ export interface Product {
   featured?: boolean;
   priceMax?: number;
   deliveryDays?: number; // Days to prepare/deliver
+  hidden?: boolean;
 }
 
 export interface CartItem extends Product {
